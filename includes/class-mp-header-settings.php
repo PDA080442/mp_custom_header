@@ -75,6 +75,7 @@ class MP_Header_Settings {
 			'menu_align'         => 'center',
 
 			/* Кнопка телефона */
+			'phone_icon'         => 'rounded',
 			'phone_bg'           => '#ffffff',
 			'phone_border_color' => '#e5dcc8',
 			'phone_border_width' => 1,
@@ -169,6 +170,15 @@ class MP_Header_Settings {
 			$output[ $prefix . '_icon_color' ]   = self::sanitize_color( $input[ $prefix . '_icon_color' ] ?? $defaults[ $prefix . '_icon_color' ], $defaults[ $prefix . '_icon_color' ] );
 			$output[ $prefix . '_size' ]         = self::range( $input[ $prefix . '_size' ] ?? 0, 28, 80, $defaults[ $prefix . '_size' ] );
 		}
+
+		$icon_key = sanitize_key( $input['phone_icon'] ?? $defaults['phone_icon'] );
+		if ( class_exists( 'MP_Header_Shortcodes' ) ) {
+			$allowed = array_keys( MP_Header_Shortcodes::phone_icons() );
+			if ( ! in_array( $icon_key, $allowed, true ) ) {
+				$icon_key = $defaults['phone_icon'];
+			}
+		}
+		$output['phone_icon'] = $icon_key;
 
 		return $output;
 	}

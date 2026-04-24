@@ -69,6 +69,17 @@ class MP_Header_Admin {
 		$o     = MP_HEADER_OPTION;
 
 		?>
+		<style>
+			.mp-icon-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;max-width:720px;margin:0;padding:0;border:0}
+			.mp-icon-picker__item{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 8px;border:1px solid #dcdcde;border-radius:8px;background:#fff;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+			.mp-icon-picker__item:hover{border-color:#2271b1}
+			.mp-icon-picker__item input{position:absolute;opacity:0;pointer-events:none}
+			.mp-icon-picker__item input:checked + .mp-icon-picker__preview{background:#1c1812;color:#f8f4ea}
+			.mp-icon-picker__item:has(input:checked){border-color:#2271b1;box-shadow:0 0 0 2px rgba(34,113,177,.2)}
+			.mp-icon-picker__preview{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:#f6f4ef;color:#1c1812;transition:background .15s,color .15s}
+			.mp-icon-picker__preview svg{width:28px;height:28px;display:block}
+			.mp-icon-picker__label{font-size:12px;line-height:1.3;text-align:center;color:#50575e}
+		</style>
 		<div class="wrap mp-header-admin">
 			<h1><?php esc_html_e( 'Metaphysica Header', 'mp-header' ); ?></h1>
 			<p>
@@ -349,6 +360,34 @@ class MP_Header_Admin {
 
 				<h2 class="title"><?php esc_html_e( 'Иконки: телефон', 'mp-header' ); ?></h2>
 				<table class="form-table" role="presentation">
+					<tr>
+						<th><?php esc_html_e( 'Стиль иконки', 'mp-header' ); ?></th>
+						<td>
+							<?php
+							$phone_icons   = MP_Header_Shortcodes::phone_icons();
+							$current_icon  = isset( $opts['phone_icon'] ) ? $opts['phone_icon'] : MP_Header_Shortcodes::default_phone_icon();
+							if ( ! isset( $phone_icons[ $current_icon ] ) ) {
+								$current_icon = MP_Header_Shortcodes::default_phone_icon();
+							}
+							$allowed_svg = array(
+								'svg'       => array( 'xmlns' => true, 'viewbox' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true, 'stroke-linecap' => true, 'stroke-linejoin' => true, 'aria-hidden' => true, 'class' => true ),
+								'path'      => array( 'd' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true, 'opacity' => true ),
+								'circle'    => array( 'cx' => true, 'cy' => true, 'r' => true, 'fill' => true ),
+								'rect'      => array( 'x' => true, 'y' => true, 'width' => true, 'height' => true, 'rx' => true, 'fill' => true ),
+							);
+							?>
+							<fieldset class="mp-icon-picker">
+								<?php foreach ( $phone_icons as $key => $icon ) : ?>
+									<label class="mp-icon-picker__item">
+										<input type="radio" name="<?php echo esc_attr( $o ); ?>[phone_icon]" value="<?php echo esc_attr( $key ); ?>" <?php checked( $current_icon, $key ); ?>>
+										<span class="mp-icon-picker__preview"><?php echo wp_kses( $icon['svg'], $allowed_svg ); ?></span>
+										<span class="mp-icon-picker__label"><?php echo esc_html( $icon['label'] ); ?></span>
+									</label>
+								<?php endforeach; ?>
+							</fieldset>
+							<p class="description"><?php esc_html_e( 'Цвет иконки берётся из настройки «Цвет иконки» ниже.', 'mp-header' ); ?></p>
+						</td>
+					</tr>
 					<tr>
 						<th><label for="phone_bg"><?php esc_html_e( 'Фон кнопки', 'mp-header' ); ?></label></th>
 						<td><input type="text" id="phone_bg" name="<?php echo esc_attr( $o ); ?>[phone_bg]" value="<?php echo esc_attr( $opts['phone_bg'] ); ?>" class="mp-color"></td>
