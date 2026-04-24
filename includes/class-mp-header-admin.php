@@ -332,6 +332,30 @@ class MP_Header_Admin {
 						</td>
 					</tr>
 					<tr>
+						<th><?php esc_html_e( 'Скрывать при прокрутке вниз', 'mp-header' ); ?></th>
+						<td>
+							<label>
+								<input type="checkbox" name="<?php echo esc_attr( $o ); ?>[hide_on_scroll]" value="1" <?php checked( $opts['hide_on_scroll'], 1 ); ?>>
+								<?php esc_html_e( 'Прячем хедер при прокрутке вниз и показываем обратно при прокрутке вверх', 'mp-header' ); ?>
+							</label>
+							<p class="description"><?php esc_html_e( 'Работает при включённом «Прилипание» или «Плавающая капсула при скролле». Когда открыто меню — хедер не прячется.', 'mp-header' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label for="hide_delta"><?php esc_html_e( 'Чувствительность (px)', 'mp-header' ); ?></label></th>
+						<td>
+							<input type="number" id="hide_delta" name="<?php echo esc_attr( $o ); ?>[hide_delta]" value="<?php echo esc_attr( $opts['hide_delta'] ); ?>" min="0" max="200" class="small-text">
+							<p class="description"><?php esc_html_e( 'На сколько пикселей нужно прокрутить, чтобы сменилось состояние. Больше значение — меньше «дёрганий».', 'mp-header' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label for="hide_min_top"><?php esc_html_e( 'Не прятать до прокрутки на (px)', 'mp-header' ); ?></label></th>
+						<td>
+							<input type="number" id="hide_min_top" name="<?php echo esc_attr( $o ); ?>[hide_min_top]" value="<?php echo esc_attr( $opts['hide_min_top'] ); ?>" min="0" max="1000" class="small-text">
+							<p class="description"><?php esc_html_e( 'Пока страница проскроллена меньше этого значения — хедер не скрывается. Удобно, чтобы на самом верху он всегда был виден.', 'mp-header' ); ?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><?php esc_html_e( 'Закрытие меню', 'mp-header' ); ?></th>
 						<td>
 							<label><input type="checkbox" name="<?php echo esc_attr( $o ); ?>[close_on_click]" value="1" <?php checked( $opts['close_on_click'], 1 ); ?>> <?php esc_html_e( 'Закрывать при клике по пункту', 'mp-header' ); ?></label><br>

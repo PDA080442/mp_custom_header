@@ -4,6 +4,8 @@
   function allShells() { return document.querySelectorAll(".mp-header__shell"); }
   function allPhones() { return document.querySelectorAll(".mp-header__phone"); }
   function allFloats() { return document.querySelectorAll(".mp-header.mp-header--float"); }
+  function allHeaders() { return document.querySelectorAll(".mp-header"); }
+  function anyMenuOpen() { return !!document.querySelector(".mp-header__shell.is-open"); }
 
   if (cfg.scrollFloat) {
     var threshold = Math.max(0, parseInt(cfg.scrollOffset || 0, 10));
@@ -57,6 +59,57 @@
     } else {
       run();
     }
+  }
+
+  if (cfg.hideOnScroll) {
+    var lastY = window.scrollY || window.pageYOffset || 0;
+    var accDown = 0;
+    var accUp = 0;
+    var hideDelta = Math.max(0, parseInt(cfg.hideDelta || 8, 10));
+    var hideMinTop = Math.max(0, parseInt(cfg.hideMinTop || 0, 10));
+    var tickingHide = false;
+
+    function setHidden(flag) {
+      allHeaders().forEach(function (h) {
+        var isFloat = h.classList.contains("is-sticky") || h.classList.contains("mp-header--fixed");
+        if (!isFloat) return;
+        h.classList.toggle("is-hidden", flag);
+      });
+    }
+
+    function onHideScroll() {
+      var y = window.scrollY || window.pageYOffset || 0;
+      var diff = y - lastY;
+      lastY = y;
+      tickingHide = false;
+
+      if (anyMenuOpen()) {
+        setHidden(false);
+        accDown = 0; accUp = 0;
+        return;
+      }
+
+      if (y <= hideMinTop) {
+        setHidden(false);
+        accDown = 0; accUp = 0;
+        return;
+      }
+
+      if (diff > 0) {
+        accDown += diff; accUp = 0;
+        if (accDown >= hideDelta) { setHidden(true); }
+      } else if (diff < 0) {
+        accUp += -diff; accDown = 0;
+        if (accUp >= hideDelta) { setHidden(false); }
+      }
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!tickingHide) {
+        window.requestAnimationFrame(onHideScroll);
+        tickingHide = true;
+      }
+    }, { passive: true });
   }
 
   function closeAllMenus(exceptShell) {

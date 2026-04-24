@@ -177,6 +177,10 @@ class MP_Header_Frontend {
 			'closeOnOutside' => ! empty( $opts['close_on_outside'] ),
 			'scrollFloat'    => ! empty( $opts['scroll_float'] ),
 			'scrollOffset'   => absint( $opts['scroll_offset'] ),
+			'hideOnScroll'   => ! empty( $opts['hide_on_scroll'] ),
+			'hideDelta'      => absint( $opts['hide_delta'] ),
+			'hideMinTop'     => absint( $opts['hide_min_top'] ),
+			'stickyTop'      => ! empty( $opts['sticky_top'] ),
 		) );
 	}
 }

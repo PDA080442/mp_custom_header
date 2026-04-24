@@ -61,6 +61,9 @@ class MP_Header_Settings {
 			'sticky_top'         => 0,
 			'scroll_float'       => 0,
 			'scroll_offset'      => 8,
+			'hide_on_scroll'     => 0,
+			'hide_delta'         => 8,
+			'hide_min_top'       => 100,
 			'close_on_click'     => 1,
 			'close_on_outside'   => 1,
 			'load_fonts'         => 1,
@@ -151,6 +154,9 @@ class MP_Header_Settings {
 		$output['sticky_top']       = empty( $input['sticky_top'] ) ? 0 : 1;
 		$output['scroll_float']     = empty( $input['scroll_float'] ) ? 0 : 1;
 		$output['scroll_offset']    = self::range( $input['scroll_offset'] ?? 0, 0, 600, $defaults['scroll_offset'] );
+		$output['hide_on_scroll']   = empty( $input['hide_on_scroll'] ) ? 0 : 1;
+		$output['hide_delta']       = self::range( $input['hide_delta']   ?? 0, 0, 200,  $defaults['hide_delta'] );
+		$output['hide_min_top']     = self::range( $input['hide_min_top'] ?? 0, 0, 1000, $defaults['hide_min_top'] );
 		$output['close_on_click']   = empty( $input['close_on_click'] ) ? 0 : 1;
 		$output['close_on_outside'] = empty( $input['close_on_outside'] ) ? 0 : 1;
 		$output['load_fonts']       = empty( $input['load_fonts'] ) ? 0 : 1;

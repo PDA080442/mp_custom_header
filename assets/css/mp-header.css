@@ -18,6 +18,18 @@
   z-index: 9000;
 }
 
+/* Hide on scroll down / show on scroll up */
+.mp-header.is-sticky,
+.mp-header.mp-header--float.mp-header--fixed {
+  transition: transform 0.35s ease, background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
+}
+.mp-header.is-sticky.is-hidden,
+.mp-header.mp-header--float.mp-header--fixed.is-hidden {
+  transform: translateY(-110%);
+  pointer-events: none;
+}
+
 /* Плавающая капсула при прокрутке (fixed + спейсер из JS) */
 .mp-header.mp-header--float.mp-header--fixed {
   position: fixed;
