@@ -50,6 +50,21 @@ class MP_Header_Frontend {
 		$css .= '--mph-btn-size:'  . absint( $opts['button_size'] )   . 'px;';
 		$css .= '}';
 
+		/* Туманный (glass) фон */
+		if ( ! empty( $opts['fog_enabled'] ) ) {
+			$fog_rgba = self::hex_to_rgba( $opts['fog_tint'], absint( $opts['fog_opacity'] ) / 100 );
+			$fog_blur = absint( $opts['fog_blur'] );
+			$fog_sat  = absint( $opts['fog_saturate'] );
+			$fog_fx   = 'backdrop-filter:blur(' . $fog_blur . 'px) saturate(' . $fog_sat . '%);-webkit-backdrop-filter:blur(' . $fog_blur . 'px) saturate(' . $fog_sat . '%);';
+
+			if ( in_array( $opts['fog_scope'], array( 'strip', 'both' ), true ) ) {
+				$css .= '.mp-header{background:' . $fog_rgba . ' !important;' . $fog_fx . '}';
+			}
+			if ( in_array( $opts['fog_scope'], array( 'pill', 'both' ), true ) ) {
+				$css .= '.mp-header .mp-header__pill{background:' . $fog_rgba . ' !important;' . $fog_fx . '}';
+			}
+		}
+
 		/* Отступы и обводка капсулы */
 		$mt = absint( $opts['margin_top'] );
 		$mb = absint( $opts['margin_bottom'] );
@@ -182,5 +197,20 @@ class MP_Header_Frontend {
 			'hideMinTop'     => absint( $opts['hide_min_top'] ),
 			'stickyTop'      => ! empty( $opts['sticky_top'] ),
 		) );
+	}
+
+	private static function hex_to_rgba( $hex, $alpha ) {
+		$hex = ltrim( (string) $hex, '#' );
+		if ( strlen( $hex ) === 3 ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+		if ( ! preg_match( '/^[A-Fa-f0-9]{6}$/', $hex ) ) {
+			$hex = 'ffffff';
+		}
+		$r = hexdec( substr( $hex, 0, 2 ) );
+		$g = hexdec( substr( $hex, 2, 2 ) );
+		$b = hexdec( substr( $hex, 4, 2 ) );
+		$a = max( 0, min( 1, (float) $alpha ) );
+		return 'rgba(' . $r . ',' . $g . ',' . $b . ',' . $a . ')';
 	}
 }

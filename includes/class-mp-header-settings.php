@@ -47,6 +47,12 @@ class MP_Header_Settings {
 			'panel_bg'           => '#fffef9',
 			'strip_bg_enabled'   => 0,
 			'strip_bg'           => '#ffffff',
+			'fog_enabled'        => 0,
+			'fog_scope'          => 'strip',
+			'fog_tint'           => '#ffffff',
+			'fog_opacity'        => 65,
+			'fog_blur'           => 12,
+			'fog_saturate'       => 120,
 
 			/* Обводка капсулы */
 			'strip_border_color' => '#000000',
@@ -142,6 +148,13 @@ class MP_Header_Settings {
 		$output['strip_bg_enabled'] = empty( $input['strip_bg_enabled'] ) ? 0 : 1;
 		$strip = trim( (string) ( $input['strip_bg'] ?? '' ) );
 		$output['strip_bg'] = $strip === '' ? $defaults['strip_bg'] : self::sanitize_color( $strip, $defaults['strip_bg'] );
+		$output['fog_enabled'] = empty( $input['fog_enabled'] ) ? 0 : 1;
+		$fog_scope = sanitize_text_field( $input['fog_scope'] ?? $defaults['fog_scope'] );
+		$output['fog_scope'] = in_array( $fog_scope, array( 'strip', 'pill', 'both' ), true ) ? $fog_scope : $defaults['fog_scope'];
+		$output['fog_tint'] = self::sanitize_color( $input['fog_tint'] ?? $defaults['fog_tint'], $defaults['fog_tint'] );
+		$output['fog_opacity'] = self::range( $input['fog_opacity'] ?? 0, 0, 100, $defaults['fog_opacity'] );
+		$output['fog_blur'] = self::range( $input['fog_blur'] ?? 0, 0, 40, $defaults['fog_blur'] );
+		$output['fog_saturate'] = self::range( $input['fog_saturate'] ?? 0, 50, 250, $defaults['fog_saturate'] );
 
 		$output['strip_border_color'] = self::sanitize_color( $input['strip_border_color'] ?? $defaults['strip_border_color'], $defaults['strip_border_color'] );
 		$output['strip_border_width'] = self::range( $input['strip_border_width'] ?? 0, 0, 10, $defaults['strip_border_width'] );

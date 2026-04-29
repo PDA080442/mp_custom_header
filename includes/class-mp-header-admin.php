@@ -268,6 +268,47 @@ class MP_Header_Admin {
 						<td><input type="text" id="strip_bg" name="<?php echo esc_attr( $o ); ?>[strip_bg]" value="<?php echo esc_attr( $opts['strip_bg'] ); ?>" class="mp-color"></td>
 					</tr>
 					<tr>
+						<th><?php esc_html_e( 'Туманный фон (blur)', 'mp-header' ); ?></th>
+						<td>
+							<label>
+								<input type="checkbox" name="<?php echo esc_attr( $o ); ?>[fog_enabled]" value="1" <?php checked( $opts['fog_enabled'], 1 ); ?>>
+								<?php esc_html_e( 'Включить стеклянный (прозрачный + размытый) эффект', 'mp-header' ); ?>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<th><label for="fog_scope"><?php esc_html_e( 'Где применять эффект', 'mp-header' ); ?></label></th>
+						<td>
+							<select id="fog_scope" name="<?php echo esc_attr( $o ); ?>[fog_scope]">
+								<option value="strip" <?php selected( $opts['fog_scope'], 'strip' ); ?>><?php esc_html_e( 'Только полоса хедера', 'mp-header' ); ?></option>
+								<option value="pill" <?php selected( $opts['fog_scope'], 'pill' ); ?>><?php esc_html_e( 'Только капсула', 'mp-header' ); ?></option>
+								<option value="both" <?php selected( $opts['fog_scope'], 'both' ); ?>><?php esc_html_e( 'Полоса и капсула', 'mp-header' ); ?></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th><label for="fog_tint"><?php esc_html_e( 'Цвет тумана', 'mp-header' ); ?></label></th>
+						<td><input type="text" id="fog_tint" name="<?php echo esc_attr( $o ); ?>[fog_tint]" value="<?php echo esc_attr( $opts['fog_tint'] ); ?>" class="mp-color"></td>
+					</tr>
+					<tr>
+						<th><label for="fog_opacity"><?php esc_html_e( 'Прозрачность тумана (%)', 'mp-header' ); ?></label></th>
+						<td>
+							<input type="number" id="fog_opacity" name="<?php echo esc_attr( $o ); ?>[fog_opacity]" value="<?php echo esc_attr( $opts['fog_opacity'] ); ?>" min="0" max="100" class="small-text">
+							<p class="description"><?php esc_html_e( '0 — полностью прозрачный, 100 — полностью плотный.', 'mp-header' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label for="fog_blur"><?php esc_html_e( 'Сила blur (px)', 'mp-header' ); ?></label></th>
+						<td><input type="number" id="fog_blur" name="<?php echo esc_attr( $o ); ?>[fog_blur]" value="<?php echo esc_attr( $opts['fog_blur'] ); ?>" min="0" max="40" class="small-text"></td>
+					</tr>
+					<tr>
+						<th><label for="fog_saturate"><?php esc_html_e( 'Насыщенность (%)', 'mp-header' ); ?></label></th>
+						<td>
+							<input type="number" id="fog_saturate" name="<?php echo esc_attr( $o ); ?>[fog_saturate]" value="<?php echo esc_attr( $opts['fog_saturate'] ); ?>" min="50" max="250" class="small-text">
+							<p class="description"><?php esc_html_e( 'Можно усилить или приглушить цвет контента за блюром.', 'mp-header' ); ?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label for="strip_border_color"><?php esc_html_e( 'Цвет обводки капсулы', 'mp-header' ); ?></label></th>
 						<td><input type="text" id="strip_border_color" name="<?php echo esc_attr( $o ); ?>[strip_border_color]" value="<?php echo esc_attr( $opts['strip_border_color'] ); ?>" class="mp-color"></td>
 					</tr>
