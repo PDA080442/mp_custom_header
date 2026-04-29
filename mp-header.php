@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Metaphysica Header
  * Description: Плавающий хедер Metaphysica (капсула + выпадающее меню). Адаптив desktop/tablet/mobile. Настраивается в админке. Вставка шорткодом [mp_header].
- * Version: 2.5.0
+ * Version: 2.5.1
  * Author: Metaphysica
  * Text Domain: mp-header
  */
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MP_HEADER_VERSION', '2.5.0' );
+define( 'MP_HEADER_VERSION', '2.5.1' );
 define( 'MP_HEADER_FILE', __FILE__ );
 define( 'MP_HEADER_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MP_HEADER_URL', plugin_dir_url( __FILE__ ) );

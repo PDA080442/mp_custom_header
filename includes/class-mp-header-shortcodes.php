@@ -122,8 +122,11 @@ class MP_Header_Shortcodes {
 		if ( ! isset( $icons[ $key ] ) ) {
 			$key = self::default_phone_icon();
 		}
-		$svg = $icons[ $key ]['svg'];
-		return preg_replace( '/<svg\b/', '<svg class="mp-header__icon"', $svg, 1 );
+		$icon_markup = $icons[ $key ]['svg'];
+		if ( strpos( $icon_markup, '<svg' ) !== false ) {
+			return preg_replace( '/<svg\b/', '<svg class="mp-header__icon"', $icon_markup, 1 );
+		}
+		return $icon_markup;
 	}
 
 	/**
@@ -178,6 +181,10 @@ class MP_Header_Shortcodes {
 			'bubble' => array(
 				'label' => __( 'С облаком сообщения', 'mp-header' ),
 				'svg'   => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2.5h-11A2.5 2.5 0 0 0 7 5v6.5A2.5 2.5 0 0 0 9.5 14H11v3l4-3h5.5A2.5 2.5 0 0 0 23 11.5V5a2.5 2.5 0 0 0-2.5-2.5z" fill="currentColor" opacity=".35"/><path d="M6.3 10.3a13 13 0 0 0 5.4 5.4l1.4-1.4a1 1 0 0 1 1-.2c.9.3 1.8.5 2.7.5a1 1 0 0 1 1 1v2.3a1 1 0 0 1-1 1A15 15 0 0 1 2.1 3.9a1 1 0 0 1 1-1h2.3a1 1 0 0 1 1 1c0 .9.2 1.8.5 2.7a1 1 0 0 1-.2 1L5.3 8.9a1 1 0 0 0 0 1.4z" fill="currentColor"/></svg>',
+			),
+			'white-phone-png' => array(
+				'label' => __( 'PNG белая трубка', 'mp-header' ),
+				'svg'   => '<img src="' . esc_url( MP_HEADER_URL . 'assets/image/white_phone.png' ) . '" alt="" class="mp-header__icon" aria-hidden="true" />',
 			),
 		);
 	}

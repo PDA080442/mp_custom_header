@@ -78,6 +78,7 @@ class MP_Header_Admin {
 			.mp-icon-picker__item:has(input:checked){border-color:#2271b1;box-shadow:0 0 0 2px rgba(34,113,177,.2)}
 			.mp-icon-picker__preview{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:#f6f4ef;color:#1c1812;transition:background .15s,color .15s}
 			.mp-icon-picker__preview svg{width:28px;height:28px;display:block}
+			.mp-icon-picker__preview img{width:28px;height:28px;display:block;object-fit:contain}
 			.mp-icon-picker__label{font-size:12px;line-height:1.3;text-align:center;color:#50575e}
 		</style>
 		<div class="wrap mp-header-admin">
@@ -439,6 +440,7 @@ class MP_Header_Admin {
 								'path'      => array( 'd' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true, 'opacity' => true ),
 								'circle'    => array( 'cx' => true, 'cy' => true, 'r' => true, 'fill' => true ),
 								'rect'      => array( 'x' => true, 'y' => true, 'width' => true, 'height' => true, 'rx' => true, 'fill' => true ),
+								'img'       => array( 'src' => true, 'alt' => true, 'class' => true, 'aria-hidden' => true ),
 							);
 							?>
 							<fieldset class="mp-icon-picker">
